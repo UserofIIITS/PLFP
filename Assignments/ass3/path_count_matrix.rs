@@ -1,9 +1,13 @@
 fn main() {
-	   struct Fact<'s> { f: &'s Fn(&Fact, u32,u32) -> u32 }
-	      let fact = Fact {
-		             f: &|fact, x, y | if x == 0 {1} else {x * (fact.f)(fact, x - 1,y)}
-				   };
-				   	println! ("Now enter two numbers");
+
+	//Declaring the structure of the function
+	struct Mat<'s> { f: &'s Fn(&Mat, u32,u32) -> u32 }
+	
+	//Definition of function
+	let mat = Mat {
+f: &|mat, x ,y | if x == 1 || y == 1  {1} else {(mat.f)(mat, x - 1,y) + (mat.f)(mat,x, y- 1)}
+	};
+       println! ("Now enter two numbers");
 				   		let mut i1= String::new();
 				    	let mut i2= String::new();
 
@@ -30,6 +34,5 @@ fn main() {
 				   	let i1_int: u32 = trimmed1.parse::<u32>().unwrap();
                     let i2_int: u32 = trimmed2.parse::<u32>().unwrap();
 
-
-	         println!("{}", (fact.f)(&fact,i1_int,i2_int));
+	println!("{}", (mat.f)(&mat, i1_int,i2_int));
 }
